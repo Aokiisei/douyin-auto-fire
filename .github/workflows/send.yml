@@ -7,14 +7,8 @@ on:
         description: Only verify login and friends without sending
         type: boolean
         default: false
-  # 每天 23:30、01:00 与 07:00（Asia/Shanghai）各发送一次。
-  # GitHub Actions 的 schedule 只认 UTC，不支持 timezone 字段。
-  # 23:30 北京 = 15:30 UTC；01:00 北京 = 前一日 17:00 UTC；07:00 北京 = 前一日 23:00 UTC。
-  # 如改用 cron-job.org 外部触发，请注释掉下面这段，避免一天发送多次。
-  schedule:
-    - cron: "30 15 * * *"
-    - cron: "0 17 * * *"
-    - cron: "0 23 * * *"
+  # 定时由 cron-job.org 通过 workflow_dispatch 外部触发。
+  # 不使用 GitHub 原生 schedule，避免重复发送。
 
 concurrency:
   group: douyin-daily-sender
