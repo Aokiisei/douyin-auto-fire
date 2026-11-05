@@ -44,6 +44,11 @@ jobs:
       - name: Write protected configuration
         shell: bash
         run: printf '%s' "$DOUYIN_CONFIG" > config.json
+      - name: Apply friend name fixes
+        shell: bash
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: python scripts/apply_name_fixes.py
       - name: Write multi-account configuration
         shell: bash
         env:
