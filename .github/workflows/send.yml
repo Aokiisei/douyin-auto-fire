@@ -7,13 +7,14 @@ on:
         description: Only verify login and friends without sending
         type: boolean
         default: false
-  # 每天 23:30 与次日 07:00 各发送一次（Asia/Shanghai）
-  # 上游默认注释掉 schedule，使用外部 cron 时无需启用；此处启用 GitHub 原生定时。
-  schedule:
-    - cron: "30 23 * * *"
-      timezone: "Asia/Shanghai"
-    - cron: "0 7 * * *"
-      timezone: "Asia/Shanghai"
+  # 定时由外部 cron-job.org 通过 workflow_dispatch 触发，每天 23:30 与 07:00（Asia/Shanghai）。
+  # 原生 schedule 保持关闭，避免与外部 cron 同时触发导致一天发送两次。
+  # 如需改用 GitHub 原生定时，取消下面注释并停用 cron-job.org 任务即可。
+  # schedule:
+  #   - cron: "30 23 * * *"
+  #     timezone: "Asia/Shanghai"
+  #   - cron: "0 7 * * *"
+  #     timezone: "Asia/Shanghai"
 
 concurrency:
   group: douyin-daily-sender
